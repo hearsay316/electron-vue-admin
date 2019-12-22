@@ -23,6 +23,7 @@ function createWindow() {
     width: 512,
     height: 771,
     title:'计算器',
+    resizable:false,
     webPreferences: {
       nodeIntegration: true
     }
