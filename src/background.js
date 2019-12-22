@@ -26,7 +26,7 @@ function createWindow() {
       nodeIntegration: true
     }
   });
-
+  import("./config/Menu.js");
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
