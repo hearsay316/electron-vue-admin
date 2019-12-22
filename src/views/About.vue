@@ -43,7 +43,6 @@ export default {
         return (this.value = 0);
       }
       if (mun === "=") {
-        // eslint-disable-next-line no-unused-vars
         let str = this.value.toString();
         str = str.replace(/÷/, "/");
         str = str.replace(/x/, "*");
