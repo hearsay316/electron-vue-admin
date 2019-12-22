@@ -89,9 +89,10 @@ let template = [
 ];
 
 // 为应用程序构建菜单项
-let menu = Menu.buildFromTemplate(template);
+
+//let menu = Menu.buildFromTemplate(template);
 // 将构建好的菜单项添加到应用程序
-Menu.setApplicationMenu(menu);
+Menu.setApplicationMenu(null);
 
 // 展示关于页面
 function hm_aboutWindow() {

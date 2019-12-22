@@ -39,16 +39,15 @@ export default {
   },
   methods: {
     handleClick(mun) {
-      // eslint-disable-next-line no-console
-      console.log(mun);
-      if (mun === "x") {
-        mun = "*";
-      }
       if (mun === "AC") {
         return (this.value = 0);
       }
       if (mun === "=") {
-        return (this.value = eval(this.value));
+        // eslint-disable-next-line no-unused-vars
+        let str = this.value.toString();
+        str = str.replace(/÷/, "/");
+        str = str.replace(/x/, "*");
+        return (this.value = eval(str));
       }
       if (this.value == 0) {
         return (this.value = mun);
@@ -65,7 +64,8 @@ export default {
     background-color #000000
     text-align right
     color white
-    line-height 64px
+    line-height 25vw
+    font-size 45px
     padding 0
     margin 0
   .about-ked
@@ -80,7 +80,7 @@ export default {
       display inline-block
       text-align center
       background-color #3a8ee6
-      font-size 16px
+      font-size 24px
       border-bottom  1px solid #82848a
       border-right  1px solid #82848a
     li:nth-of-type(4n), li:last-child
