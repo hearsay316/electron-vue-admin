@@ -138,7 +138,7 @@ function hm_setColor() {
 }
 
 // 在主进程中监听渲染进程发送的显示右键菜单的消息
-ipcMain.on("hm_showContextMenu", event => {
+ipcMain.on("rightClick", event => {
   // BrowserWindow.fromWebContents可以获取当前窗口对象
   let win = BrowserWindow.fromWebContents(event.sender);
   // 将此菜单作为 browserWindow 中的上下文菜单弹出

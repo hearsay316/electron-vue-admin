@@ -42,6 +42,7 @@ export default {
   },
   mounted() {
     this.ipc();
+    this.rightClick()
   },
 
   methods: {
@@ -70,6 +71,11 @@ export default {
         console.log(event, args);
         this.color = args;
       });
+    },
+    rightClick(){
+      document.addEventListener("contextmenu",function () {
+        ipcRenderer.send("rightClick");
+      })
     }
   }
 };

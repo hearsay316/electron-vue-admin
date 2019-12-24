@@ -17,11 +17,12 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } }
 ]);
 
+
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 512,
-    height: 771,
+    height: 812,
     title: "计算器",
     resizable: false,
     webPreferences: {
