@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import {
   createProtocol,
   // eslint-disable-next-line no-unused-vars
@@ -22,14 +22,17 @@ function createWindow() {
   win = new BrowserWindow({
     width: 512,
     height: 771,
-    title:'计算器',
-    resizable:false,
+    title: "计算器",
+    resizable: false,
     webPreferences: {
       nodeIntegration: true
     }
   });
+
   import("./config/Menu.js");
   if (process.env.WEBPACK_DEV_SERVER_URL) {
+    // eslint-disable-next-line no-console
+    console.log(process.env.WEBPACK_DEV_SERVER_URL);
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     if (!process.env.IS_TEST) win.webContents.openDevTools();
@@ -38,7 +41,10 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
-
+  ipcMain.on("megColor", (event, color) => {
+    // noinspection JSUnresolvedFunction
+    win.webContents.send("setColor", color);
+  });
   win.on("closed", () => {
     win = null;
   });

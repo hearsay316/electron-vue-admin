@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h2 class="about-title">{{ value }}</h2>
+    <h2 class="about-title" :style="{ color: color }">{{ value }}</h2>
     <ul class="about-ked">
       <li v-for="item of items" @click="handleClick(item)" :key="item">
         {{ item }}
@@ -9,10 +9,13 @@
   </div>
 </template>
 <script>
+import { ipcRenderer } from "electron";
+
 export default {
   name: "about",
   data() {
     return {
+      color: "white",
       value: "0",
       items: [
         "AC",
@@ -37,6 +40,10 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.ipc();
+  },
+
   methods: {
     handleClick(mun) {
       if (mun === "AC") {
@@ -48,10 +55,21 @@ export default {
         str = str.replace(/x/, "*");
         return (this.value = eval(str));
       }
+      if (mun === "+/-") {
+        return (this.value = -this.value);
+      }
+
       if (this.value == 0) {
         return (this.value = mun);
       }
       this.value += "" + mun;
+    },
+    ipc() {
+      ipcRenderer.on("setColor", (event, args) => {
+        // eslint-disable-next-line no-console
+        console.log(event, args);
+        this.color = args;
+      });
     }
   }
 };
@@ -62,7 +80,7 @@ export default {
   .about-title
     background-color #000000
     text-align right
-    color white
+
     line-height 25vw
     font-size 45px
     padding 0

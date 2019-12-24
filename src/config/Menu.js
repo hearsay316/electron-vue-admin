@@ -1,23 +1,27 @@
 import { Menu, BrowserWindow, dialog, ipcMain } from "electron";
 import path from "path";
-
-
+import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 // 构建具体的菜单顶
 let template = [
-/*  // 单个菜单项
+  // 单个菜单项
   {
-    label: "计算器",
+    label: "设置",
     submenu: [
       {
-        label: "关于",
-        click: function() {
-          hm_aboutWindow();
+        label: "总在最前",
+        click: function(menuItem, browserWindow, KeyboardEvent) {
+          browserWindow.isAlwaysOnTop()
+            ? browserWindow.setAlwaysOnTop(false)
+            : browserWindow.setAlwaysOnTop(true);
+          // eslint-disable-next-line no-console
+          console.log(menuItem, browserWindow, KeyboardEvent);
         }
       },
       {
         label: "退出",
         // role:'quit',
+        // eslint-disable-next-line no-unused-vars
         click: function(item, win, event) {
           // 询问用户是否真的需要退出
           dialog.showMessageBox(
@@ -85,16 +89,17 @@ let template = [
         }
       }
     ]
-  }*/
+  }
 ];
 
 // 为应用程序构建菜单项
 
-//let menu = Menu.buildFromTemplate(template);
+let menu = Menu.buildFromTemplate(template);
 // 将构建好的菜单项添加到应用程序
-Menu.setApplicationMenu(null);
+Menu.setApplicationMenu(menu);
 
 // 展示关于页面
+// eslint-disable-next-line no-unused-vars
 function hm_aboutWindow() {
   let win = new BrowserWindow({
     width: 250,
@@ -112,10 +117,22 @@ function hm_setColor() {
   let win = new BrowserWindow({
     width: 250,
     height: 100,
-    title: "选择颜色"
+    title: "选择颜色",
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
   // win.webContents.openDevTools()
-  win.loadURL(path.join(__dirname, "../views/color.html"));
+  // eslint-disable-next-line no-console
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    // Load the url of the dev server if in development mode
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + "#/setcolor");
+    if (!process.env.IS_TEST) win.webContents.openDevTools();
+  } else {
+    createProtocol("app");
+    // Load the index.html when not in development
+    win.loadURL("app://./index.html#/setcolor");
+  }
   // 设置不展示菜单项
   win.setMenu(null);
 }
