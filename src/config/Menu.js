@@ -73,7 +73,7 @@ let template = [
         }
       },
       {
-        label: "字体减小",
+        label: "字体减小2",
         accelerator: "F12",
         // eslint-disable-next-line no-unused-vars
         click: function(menuItem, win, event) {

@@ -1,11 +1,12 @@
-"use strict";
-
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import path from "path";
+import { app, protocol, BrowserWindow, ipcMain} from "electron";
 import {
   createProtocol,
   // eslint-disable-next-line no-unused-vars
   installVueDevtools
 } from "vue-cli-plugin-electron-builder/lib";
+import createTray from "./config/tary";
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -20,9 +21,11 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 512,
-    height: 814,
+    width: 400,
+    height: 633,
     title: "计算器",
+    // eslint-disable-next-line no-undef
+    icon: path.join(__static, "tray.png"),
     //resizable: false,
     webPreferences: {
       nodeIntegration: true
@@ -32,11 +35,11 @@ function createWindow() {
   import("./config/Menu.js");
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // eslint-disable-next-line no-console
-    console.log(process.env.WEBPACK_DEV_SERVER_URL);
+    // console.log(process.env.WEBPACK_DEV_SERVER_URL);
     // Load the url of the dev server if in development mode
     // noinspection JSIgnoredPromiseFromCall
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-    if (!process.env.IS_TEST) win.webContents.openDevTools();
+    //if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
     createProtocol("app");
     // Load the index.html when not in development
@@ -46,9 +49,13 @@ function createWindow() {
     // noinspection JSUnresolvedFunction
     win.webContents.send("setColor", color);
   });
-  win.on("closed", () => {
-    win = null;
+  win.on("close", (event) => {
+    //win = null;
+    win.hide();
+    win.setSkipTaskbar(true);
+    event.preventDefault();
   });
+  createTray(win);
 }
 
 // Quit when all windows are closed.
