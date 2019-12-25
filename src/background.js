@@ -52,7 +52,7 @@ function createWindow() {
   win.on("close", (event) => {
     //win = null;
     win.hide();
-    win.setSkipTaskbar(true);
+    //win.setSkipTaskbar(true);
     event.preventDefault();
   });
   createTray(win);

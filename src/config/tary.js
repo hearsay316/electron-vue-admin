@@ -34,10 +34,11 @@ export default function(win) {
   tray.on("click", () => {
     if (win.isVisible()) {
       win.hide();
-      win.setSkipTaskbar(true);
+     // win.setSkipTaskbar(true);
     } else {
       win.show();
-      win.setSkipTaskbar(false);
+    //  tray.flashFrame(true)
+      win.flashFrame(false);
     }
   });
   tray.setToolTip("计算器");
