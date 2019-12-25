@@ -27,6 +27,24 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "setcolor" */ "../views/SetColor.vue")
+  },
+  {
+    path: "/login",
+    name: "login",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "setcolor" */ "../views/SetColor.vue")
+  },
+  {
+    path: "/bird",
+    name: "bird",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "setcolor" */ "../views/Bird.vue")
   }
 ];
 
@@ -36,4 +54,27 @@ const router = new VueRouter({
   routes
 });
 
+// router.beforeEach((to, from, next) => {
+//   let token = "";
+//   if (token) {
+//     if (to.path === "/login") {
+//       next({ name: "home" });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     // eslint-disable-next-line no-console
+//     console.log(to.path);
+//     if (to.path !== "/login") {
+//       next("/login");
+//     } else {
+//       next();
+//     }
+//   }
+//   // if(!token){
+//   //   next({name:"login"})
+//   // }else {
+//   //   next();
+//   // }
+// });
 export default router;

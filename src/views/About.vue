@@ -47,6 +47,9 @@ export default {
 
   methods: {
     handleClick(mun) {
+      if(this.value==512&&mun==="="){
+        this.$router.push({name:"bird"})
+      }
       if (mun === "AC") {
         return (this.value = 0);
       }

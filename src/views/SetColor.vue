@@ -21,7 +21,7 @@ export default {
   methods: {
     handleClick(color) {
       // eslint-disable-next-line no-console
-      //console.log(color)
+      console.log(color)
       ipcRenderer.send("megColor", color);
     }
   }

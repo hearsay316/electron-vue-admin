@@ -17,14 +17,13 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } }
 ]);
 
-
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 512,
-    height: 812,
+    height: 814,
     title: "计算器",
-    resizable: false,
+    //resizable: false,
     webPreferences: {
       nodeIntegration: true
     }
@@ -35,6 +34,7 @@ function createWindow() {
     // eslint-disable-next-line no-console
     console.log(process.env.WEBPACK_DEV_SERVER_URL);
     // Load the url of the dev server if in development mode
+    // noinspection JSIgnoredPromiseFromCall
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
